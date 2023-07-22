@@ -5,7 +5,7 @@ This script paginates a database of popular baby names.
 
 import csv
 import math
-from typing import List, Dict
+from typing import List, Dict, Any
 import math
 
 
