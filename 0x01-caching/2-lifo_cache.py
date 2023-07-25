@@ -10,6 +10,7 @@ class LIFOCache(BaseCaching):
 
     This caching system uses a last-in, first-out algorithm
     """
+
     def __init__(self):
         """Initialize
         """
@@ -57,4 +58,3 @@ class LIFOCache(BaseCaching):
         if key is not None:
             return self.cache_data.get(key)
         return None
-
