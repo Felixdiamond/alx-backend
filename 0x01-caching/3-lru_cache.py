@@ -10,6 +10,7 @@ class LRUCache(BaseCaching):
 
     This caching system uses a least-recently-used algorithm
     """
+
     def __init__(self):
         """Initialize
         """
@@ -61,4 +62,3 @@ class LRUCache(BaseCaching):
                 self.queue.append(key)
             return value
         return None
- 
