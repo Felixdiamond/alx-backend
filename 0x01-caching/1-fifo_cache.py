@@ -10,6 +10,7 @@ class FIFOCache(BaseCaching):
 
     This caching system uses a first-in, first-out algorithm
     """
+
     def __init__(self):
         """Initialize
         """
@@ -55,4 +56,3 @@ class FIFOCache(BaseCaching):
         if key is not None:
             return self.cache_data.get(key)
         return None
-
