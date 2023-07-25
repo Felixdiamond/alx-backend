@@ -10,6 +10,7 @@ class MRUCache(BaseCaching):
 
     This caching system uses a most-recently-used algorithm
     """
+
     def __init__(self):
         """Initialize
         """
@@ -61,4 +62,3 @@ class MRUCache(BaseCaching):
                 self.queue.append(key)
             return value
         return None
-
