@@ -10,6 +10,7 @@ class LFUCache(BaseCaching):
 
     This caching system uses a least-frequently-used algorithm
     """
+
     def __init__(self):
         """Initialize
         """
@@ -78,4 +79,3 @@ class LFUCache(BaseCaching):
                 self.frequency[key] += 1
             return value
         return None
-
