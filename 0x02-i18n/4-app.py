@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Flask app with Babel"""
+"""
+    Use Babel to get user locale.
+"""
 from flask import Flask, render_template, request
 from flask_babel import Babel, gettext as _
 
