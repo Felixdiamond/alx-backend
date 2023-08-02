@@ -1,10 +1,26 @@
 #!/usr/bin/env python3
-"""Flask app with Babel"""
+'''
+    Use Babel to get user locale.
+'''
+
+from flask_babel import Babel
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, gettext as _
+from typing import Union
 
 app = Flask(__name__, template_folder='templates')
 babel = Babel(app)
+
+
+class Config(object):
+    '''
+        Babel configuration.
+    '''
+    LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
+
+
+app.config.from_object(Config)
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -14,46 +30,43 @@ users = {
 }
 
 
-class Config:
-    """Config class for Babel"""
-    LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = "UTC"
-
-
-app.config.from_object(Config)
-
-
-@babel.localeselector
-def get_locale() -> str:
-    """Get best matching locale from request"""
-    locale = request.args.get('locale')
-    if locale and locale in app.config['LANGUAGES']:
-        return locale
-    user = getattr(g, 'user', None)
-    if user:
-        return user.get('locale')
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-def get_user() -> dict:
-    """Get user from request"""
-    user_id = request.args.get('login_as')
-    if user_id and int(user_id) in users:
-        return users.get(int(user_id))
-    return None
+def get_user() -> Union[dict, None]:
+    '''
+        Get user from session as per variable.
+    '''
+    try:
+        login_as = request.args.get('login_as', None)
+        user = users[int(login_as)]
+    except Exception:
+        user = None
 
 
 @app.before_request
 def before_request():
-    """Set user before request"""
-    g.user = get_user()
+    '''
+        Operations before request.
+    '''
+    user = get_user()
+    g.user = user
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def index() -> str:
-    """Index route"""
+def helloWorld() -> str:
+    '''
+        Render template for Babel usage.
+    '''
     return render_template('5-index.html')
+
+
+@babel.localeselector
+def get_locale() -> str:
+    '''
+        Get user locale to serve matching translation.
+    '''
+    locale = request.args.get('locale')
+    if locale in app.config['LANGUAGES']:
+        return locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == '__main__':
