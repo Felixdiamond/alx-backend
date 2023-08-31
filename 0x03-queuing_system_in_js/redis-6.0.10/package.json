@@ -7,11 +7,17 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec babel-node --presets @babel/preset-env"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "redis": "^4.6.8"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.22.10",
+    "@babel/preset-env": "^7.22.14",
+    "nodemon": "^3.0.1"
   }
 }
